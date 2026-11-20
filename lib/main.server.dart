@@ -102,14 +102,11 @@ Response _text(String body) => Response.ok(body, headers: {'content-type': 'text
 String _robots(String base) => 'User-agent: *\nDisallow: /api/\nAllow: /\n\nSitemap: $base/sitemap.xml\n';
 
 Response _sitemap(String base) {
-  final urls = [
-    ...publicPaths,
-    for (final s in services) '/services/${s.slug}',
-  ];
+  final urls = allPaths;
   final body = StringBuffer('<?xml version="1.0" encoding="UTF-8"?>\n')
     ..writeln('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
   for (final path in urls) {
-    body.writeln('  <url><loc>${const HtmlEscape().convert('$base$path')}</loc></url>');
+    body.writeln('  <url><loc>${const HtmlEscape(HtmlEscapeMode.element).convert('$base$path')}</loc></url>');
   }
   body.writeln('</urlset>');
   return Response.ok(body.toString(), headers: {'content-type': 'application/xml; charset=utf-8'});

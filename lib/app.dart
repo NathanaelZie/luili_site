@@ -4,6 +4,7 @@ import 'package:jaspr_router/jaspr_router.dart';
 
 import 'components/site_footer.dart';
 import 'components/site_header.dart';
+import 'data/site_data.dart';
 import 'pages/about.dart';
 import 'pages/contact.dart';
 import 'pages/home.dart';
@@ -14,6 +15,13 @@ import 'pages/services.dart';
 
 /// Chemins publics du site (utilisés aussi pour le sitemap).
 const List<String> publicPaths = ['/', '/services', '/realisations', '/a-propos', '/contact', '/mentions-legales'];
+
+/// Toutes les pages du site : sitemap et export statique (tool/export_static.dart).
+List<String> get allPaths => [
+  ...publicPaths,
+  for (final s in services) '/services/${s.slug}',
+  for (final c in projectCategories) '/realisations/${c.value}',
+];
 
 /// Composant racine, rendu entièrement côté serveur : aucune page n'envoie
 /// de JavaScript au navigateur.
@@ -37,9 +45,10 @@ class App extends StatelessComponent {
               Route(path: '/', builder: (context, state) => const HomePage()),
               Route(path: '/services', builder: (context, state) => const ServicesPage()),
               Route(path: '/services/:slug', builder: (context, state) => ServiceDetailPage(slug: state.params['slug'] ?? '')),
+              Route(path: '/realisations', builder: (context, state) => const RealisationsPage()),
               Route(
-                path: '/realisations',
-                builder: (context, state) => RealisationsPage(category: state.queryParams['categorie']),
+                path: '/realisations/:categorie',
+                builder: (context, state) => RealisationsPage(category: state.params['categorie']),
               ),
               Route(path: '/a-propos', builder: (context, state) => const AboutPage()),
               Route(
