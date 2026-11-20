@@ -1,0 +1,5 @@
+targets:
+  $default:
+    builders:
+      jx_cli:jx_css:
+        enabled: true

@@ -1,0 +1,41 @@
+# JX CSS configuration
+# Files or folders scanned to find the classes in use.
+content:
+  - lib
+  - web
+
+# Extensions to read (.dart: only string literals are read).
+extensions: [dart, html]
+
+# Folders ignored on top of build, .dart_tool, .git and node_modules.
+exclude: []
+
+# Component libraries scanned too: a package (its lib/ folder) or a folder
+# of one. jx_cli/ui holds the JX UI components.
+packages: [jx_cli/ui]
+
+output: web/jx.css
+minify: false
+
+# Reset stylesheet (preflight) at the top of the CSS.
+reset: true
+
+# dark: variant: "media" follows the system preference, "class" applies
+# when an ancestor (usually <html>) carries the "dark" class.
+dark_mode: class
+
+theme:
+  # Tokens added or redefined on top of the default theme.
+  extend:
+    colors:
+      brand: '#e8590c'
+      brandd: '#b84309'
+      brandl: '#fff4ec'
+      ink: '#14181f'
+      inkl: '#232a35'
+      stone: '#f6f4f1'
+  # Categories replaced entirely (uncomment to use).
+  # override:
+  #   font-size:
+  #     sm: 0.875rem
+  #     base: 1rem
