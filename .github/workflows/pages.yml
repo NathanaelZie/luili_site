@@ -20,11 +20,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
+      # Même version que le poste de dev : pubspec.lock exige Dart < 3.14.
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: stable
+          sdk: 3.13.7
 
       - run: dart pub get
 
